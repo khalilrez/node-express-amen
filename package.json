@@ -1,0 +1,27 @@
+{
+  "name": "amenbank",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "swagger-autogen": "node swagger.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "khalil rezgui",
+  "license": "ISC",
+  "dependencies": {
+    "and": "^0.0.3",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mysql2": "^3.6.0",
+    "sequelize": "^6.32.1",
+    "swagger-autogen": "^2.23.5",
+    "swagger-ui-express": "^5.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
