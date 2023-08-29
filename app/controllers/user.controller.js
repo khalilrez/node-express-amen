@@ -1,6 +1,8 @@
 const db = require("../models")
 const User = db.user;
 var bcrypt = require("bcryptjs");
+const Op = db.Sequelize.Op;
+
 
 exports.allAccess = (req, res) => {
     res.status(200).send("Public Content.");
@@ -48,8 +50,15 @@ exports.allAccess = (req, res) => {
   };
 
 exports.findAll = async (req, res) => {
+  const userId = req.userId;
   try {
-    const users = await User.findAll();
+    const users = await User.findAll({
+      where: {
+        id: {
+          [Op.ne]: userId // Exclude users with token
+        }
+      }
+    });
     res.status(200).json(users);
   } catch (error) {
     console.error(error);

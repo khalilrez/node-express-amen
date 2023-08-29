@@ -2,20 +2,30 @@ const express = require("express");
 const cors = require("cors");
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./swagger_output.json')
+const cookieSession = require("cookie-session");
 
 const app = express();
 
-var corsOptions = {
-  origin: "http://localhost:4200"
-};
-
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    credentials: true,
+    origin: ["http://localhost:4200"],
+  })
+);
 
 // parse requests of content-type - application/json
 app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
+
+app.use(
+  cookieSession({
+    name: "amen-session",
+    keys: ["COOKIE_SECRET"], // should use as secret environment variable
+    httpOnly: true,
+  })
+);
 
 // simple route
 app.get("/", (req, res) => {
@@ -46,17 +56,32 @@ function initial() {
     name: "admin"
   });
   fetch("http://localhost:8080/api/auth/signup",{
-    method: "POST",
-    body: JSON.stringify({
-      username: "any",
-      password: "any",
-      email: "any",
-      roles: ["user","admin"]
-    }),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8"
-    }  
-  })
+      method: "POST",
+      body: JSON.stringify({
+        username: "admin",
+        password: "123456",
+        email: "any",
+        roles: ["user","admin"]
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }  
+    })
+  for (let index = 0; index < 10; index++) {
+    fetch("http://localhost:8080/api/auth/signup",{
+      method: "POST",
+      body: JSON.stringify({
+        username: "user"+index,
+        password: "123456",
+        email: "any",
+        roles: ["user"]
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }  
+    })
+  }
+ 
 }
 
 app.use(function(req, res, next) {

@@ -10,6 +10,23 @@ module.exports = function(app) {
     next();
   });
 
+  app.get(
+    "/api/test/all",
+    controller.allAccess
+  );
+
+  app.get(
+    "/api/test/admin",
+    [authJwt.verifyToken,authJwt.isAdmin],
+    controller.adminBoard
+  )
+
+  app.get(
+    "/api/test/admin",
+    [authJwt.verifyToken,authJwt.isAdmin],
+    controller.adminBoard
+  )
+
 
   app.get(
     "/api/info",
