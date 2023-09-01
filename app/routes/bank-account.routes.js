@@ -9,7 +9,7 @@ module.exports = app => {
     router.post("/api/bankAccounts/",[authJwt.verifyToken, authJwt.isAdmin], bankAccounts.create);
   
     // Retrieve all BankAccounts
-    router.get("/api/bankAccounts/",[authJwt.verifyToken, authJwt.isAdmin], bankAccounts.findAll);
+    router.get("/api/bankAccounts/",[authJwt.verifyToken], bankAccounts.findAll);
   
     // Retrieve all published BankAccounts
     router.get("/api/bankAccounts/active",[authJwt.verifyToken, authJwt.isAdmin], bankAccounts.findAllActive);

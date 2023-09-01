@@ -6,7 +6,7 @@ module.exports = app => {
     var router = require("express").Router();
   
     // Create a new BankAccount
-    router.post("/api/transfers/",[authJwt.verifyToken], transfers.create);
+    router.post("/api/transfers/",[authJwt.verifyToken], transfers.performTransfer);
   
     // Retrieve all transfers
     router.get("/api/transfers/",[authJwt.verifyToken], transfers.findAllBasedOnDirection);

@@ -18,7 +18,7 @@ exports.create = (req, res) => {
     balance: req.body.balance,
     userId: req.body.userId,
     description: req.body.description ? req.body.description : "",
-    isActive: req.body.isActive ? req.body.isActive : false,
+    isActive: req.body.isActive ? req.body.isActive : true,
   };
 
   // Save BankAccount in the database
@@ -36,8 +36,8 @@ exports.create = (req, res) => {
 
 // Retrieve all BankAccounts from the database.
 exports.findAll = (req, res) => {
-    const description = req.query.description;
-    var condition = description ? { description: { [Op.like]: `%${description}%` } } : null;
+    const userId = req.userId;
+    var condition = { userId: { [Op.like]: userId } } 
   
     BankAccount.findAll({ where: condition })
       .then(data => {
@@ -139,7 +139,7 @@ exports.deleteAll = (req, res) => {
         });
 };
 
-// Find all published BankAccounts
+// Find all active BankAccounts
 exports.findAllActive = (req, res) => {
     BankAccount.findAll({ where: { isActive: true } })
     .then(data => {

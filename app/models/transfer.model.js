@@ -5,7 +5,17 @@ module.exports = (sequelize, Sequelize) => {
       },
       type: {
         type: Sequelize.ENUM('CAC','BENEF')
-      }
+      },
+      devise:{
+        type:Sequelize.STRING
+      },
+      date:{
+        type:Sequelize.DATE
+      },
+      done:{
+        type:Sequelize.BOOLEAN,
+        default:false
+      },
     });
   
     return Transfer;

@@ -26,11 +26,6 @@
         "description": "",
         "parameters": [
           {
-            "name": "x-access-token",
-            "in": "header",
-            "type": "string"
-          },
-          {
             "name": "body",
             "in": "body",
             "schema": {
@@ -65,12 +60,6 @@
           "400": {
             "description": "Bad Request"
           },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -78,27 +67,9 @@
       },
       "get": {
         "description": "",
-        "parameters": [
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "description",
-            "in": "query",
-            "type": "string"
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
           },
           "500": {
             "description": "Internal Server Error"
@@ -107,13 +78,6 @@
       },
       "delete": {
         "description": "",
-        "parameters": [
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "type": "string"
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -133,13 +97,6 @@
     "/api/bankAccounts/active": {
       "get": {
         "description": "",
-        "parameters": [
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "type": "string"
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -164,11 +121,6 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "x-access-token",
-            "in": "header",
             "type": "string"
           }
         ],
@@ -198,11 +150,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "type": "string"
           }
         ],
         "responses": {
@@ -228,11 +175,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "type": "string"
           }
         ],
         "responses": {
@@ -255,11 +197,6 @@
       "post": {
         "description": "",
         "parameters": [
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "type": "string"
-          },
           {
             "name": "body",
             "in": "body",
@@ -302,13 +239,6 @@
       },
       "get": {
         "description": "",
-        "parameters": [
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "type": "string"
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -329,13 +259,6 @@
       },
       "delete": {
         "description": "",
-        "parameters": [
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "type": "string"
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -361,11 +284,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "type": "string"
           }
         ],
         "responses": {
@@ -394,11 +312,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "type": "string"
           }
         ],
         "responses": {
@@ -421,11 +334,6 @@
       "post": {
         "description": "",
         "parameters": [
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "type": "string"
-          },
           {
             "name": "body",
             "in": "body",
@@ -467,11 +375,6 @@
         "description": "",
         "parameters": [
           {
-            "name": "x-access-token",
-            "in": "header",
-            "type": "string"
-          },
-          {
             "name": "description",
             "in": "query",
             "type": "string"
@@ -494,13 +397,6 @@
       },
       "delete": {
         "description": "",
-        "parameters": [
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "type": "string"
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -520,13 +416,6 @@
     "/api/tickets/unsolved": {
       "get": {
         "description": "",
-        "parameters": [
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "type": "string"
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -551,11 +440,6 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "x-access-token",
-            "in": "header",
             "type": "string"
           }
         ],
@@ -585,11 +469,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "type": "string"
           }
         ],
         "responses": {
@@ -614,11 +493,6 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "x-access-token",
-            "in": "header",
             "type": "string"
           }
         ],
@@ -655,6 +529,12 @@
                   "example": "any"
                 },
                 "roles": {
+                  "example": "any"
+                },
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
                   "example": "any"
                 },
                 "password": {
@@ -713,6 +593,40 @@
         }
       }
     },
+    "/api/auth/signout": {
+      "post": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/auth/{code}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/test/all": {
       "get": {
         "description": "",
@@ -723,39 +637,9 @@
         }
       }
     },
-    "/api/test/user": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        }
-      }
-    },
     "/api/test/admin": {
       "get": {
         "description": "",
-        "parameters": [
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "type": "string"
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -772,10 +656,141 @@
     "/api/info": {
       "get": {
         "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/users": {
+      "post": {
+        "description": "",
         "parameters": [
           {
-            "name": "x-access-token",
-            "in": "header",
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "username": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/users/{id}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "username": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
             "type": "string"
           }
         ],
@@ -788,6 +803,40 @@
           },
           "403": {
             "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }

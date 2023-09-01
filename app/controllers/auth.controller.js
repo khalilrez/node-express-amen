@@ -7,16 +7,24 @@ const Op = db.Sequelize.Op;
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const { generateRandomNumberString, splitString } = require("../helpers/utility");
 
 exports.signup = async (req, res) => {
-  // Save User to Database
+  
   try {
+    const generatedCode= generateRandomNumberString(6);
+
     const user = await User.create({
+      firstName : req.body.firstName,
+      lastName : req.body.lastName,
       username: req.body.username,
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password, 8),
+      isActive: req.body.isActive ? true : false,
+      activationCode : generatedCode
     });
 
+    
     if (req.body.roles) {
       const roles = await Role.findAll({
         where: {
@@ -37,6 +45,32 @@ exports.signup = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+
+exports.activateUser = async (req,res) => {
+  try {
+    console.log("-----------------------------")
+    console.log(req.params.code)
+    const {activationCode, id} = splitString(req.params.code);
+    console.log("-----------------------------")
+    console.log(id)
+    console.log(activationCode)
+
+    const user = await User.findByPk(id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+    if (user.activationCode != activationCode){
+      return res.status(500).json({ message: 'Wrong Secret.' });
+
+  }
+  await user.update({ isActive:true });
+    res.status(200).json({ message: 'User Activated successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'An error occurred while activating the user.' });
+  }
+  
+}
 
 exports.signin = async (req, res) => {
   try {

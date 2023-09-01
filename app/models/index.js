@@ -39,12 +39,12 @@ db.role.belongsToMany(db.user, {
 db.user.belongsToMany(db.role, {
   through: "user_roles"
 });
-db.bankAccounts.hasOne(db.transfers, {
-    as: 'fromAccount' ,foreignKey: 'fromAccountId'
-})
-db.bankAccounts.hasOne(db.transfers, {
-  as: 'toAccount' ,foreignKey: 'toAccountId'
-})
+db.bankAccounts.hasMany(db.transfers, { as: 'fromAccount', foreignKey: 'fromAccountId' });
+db.bankAccounts.hasMany(db.transfers, { as: 'toAccount', foreignKey: 'toAccountId' });
+
+// In your Transfer model
+db.transfers.belongsTo(db.bankAccounts, { as: 'fromAccount', foreignKey: 'fromAccountId' });
+db.transfers.belongsTo(db.bankAccounts, { as: 'toAccount', foreignKey: 'toAccountId' });
 
 
 db.ROLES = ["user", "admin"];

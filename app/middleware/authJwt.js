@@ -43,6 +43,19 @@ isAdmin = (req, res, next) => {
   });
 };
 
+isActive = (req, res, next) => {
+  User.findByPk(req.userId).then(user => {
+    if (user.isActive) {
+      next();
+      return;
+    }
+    res.status(403).send({
+      message: "Your account is not active yet , check your email !"
+    });
+    return;
+  })
+}
+
 
 
 const authJwt = {

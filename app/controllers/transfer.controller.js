@@ -19,7 +19,7 @@ exports.create = (req, res) => {
     type: req.body.type,
     from: req.body.from,
     to: req.body.to,
-
+    devise: req.body.devise,
   };
 
   // Save Transfer in the database
@@ -135,7 +135,7 @@ exports.deleteAll = (req, res) => {
 
 
 exports.performTransfer = async (req, res) => {
-  const { sourceRib, destinationRib, amount, type } = req.body;
+  const { sourceRib, destinationRib, amount, type,date,devise } = req.body;
 
   try {
     // Find the source and destination bank accounts by their RIBs
@@ -157,12 +157,20 @@ exports.performTransfer = async (req, res) => {
 
     // Update the balances for source and destination accounts
     await sourceAccount.update({ balance: sourceAccount.balance - amount });
-    await destinationAccount.update({ balance: destinationAccount.balance + amount });
+    // await destinationAccount.update({ balance: destinationAccount.balance + amount }); CHANGED TO BE EXECUTED WITH CRON SCHEDULED JOB EVERY DAY
+    console.log("---- BANK ACCOUNTS ----");
+    console.log(sourceAccount.id);
+    console.log(destinationAccount.id);
 
     // Create a transfer record in the database
     const transfer = await Transfer.create({
       amount,
-      type // Assuming this is for "Client to Client" transfer
+      type,
+      devise,
+      fromAccountId:sourceAccount.id,
+      toAccountId:destinationAccount.id,
+      date,
+      done:false
     });
 
     return res.status(200).json({ message: 'Balance transferred successfully', transfer });

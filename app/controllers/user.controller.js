@@ -19,10 +19,10 @@ exports.allAccess = (req, res) => {
 
   exports.create = async (req, res) => {
     try {
-      const { username, email, password } = req.body;
+      const { firstName,lastName,username, email, password } = req.body;
       const hashedPassword = bcrypt.hashSync(password, 8);
       
-      const newUser = await User.create({ username, email, password: hashedPassword });
+      const newUser = await User.create({ firstName,lastName,username, email, password: hashedPassword });
       res.status(201).json(newUser);
     } catch (error) {
       console.error(error);
@@ -33,7 +33,7 @@ exports.allAccess = (req, res) => {
   exports.update = async (req, res) => {
     try {
       const userId = req.params.id;
-      const { username, email, password } = req.body;
+      const { firstName,lastName,username, email, password } = req.body;
       const hashedPassword = bcrypt.hashSync(password, 8);
       
       const user = await User.findByPk(userId);
@@ -41,7 +41,7 @@ exports.allAccess = (req, res) => {
         return res.status(404).json({ message: 'User not found.' });
       }
       
-      await user.update({ username, email, password: hashedPassword });
+      await user.update({ firstName,lastName,username, email, password: hashedPassword });
       res.status(200).json({ message: 'User updated successfully.' });
     } catch (error) {
       console.error(error);
@@ -52,7 +52,7 @@ exports.allAccess = (req, res) => {
 exports.findAll = async (req, res) => {
   const userId = req.userId;
   try {
-    const users = await User.findAll({
+    const users = await User.findAll({include: ["bankAccounts"],
       where: {
         id: {
           [Op.ne]: userId // Exclude users with token
