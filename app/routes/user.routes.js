@@ -42,7 +42,7 @@ module.exports = function(app) {
 
   // Update user information
   app.put(
-    "/api/users/:id",[authJwt.verifyToken, authJwt.isAdmin],
+    "/api/users/:id",[authJwt.verifyToken],
     controller.update
   );
 

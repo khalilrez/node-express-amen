@@ -24,6 +24,8 @@ db.transfers = require("./transfer.model.js")(sequelize, Sequelize);
 db.tickets = require("./ticket.model.js")(sequelize,Sequelize);
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
+db.otp = require("../models/otp.model.js")(sequelize, Sequelize);
+
 
 
 db.user.hasMany(db.bankAccounts, { as: "bankAccounts" });
@@ -45,6 +47,9 @@ db.bankAccounts.hasMany(db.transfers, { as: 'toAccount', foreignKey: 'toAccountI
 // In your Transfer model
 db.transfers.belongsTo(db.bankAccounts, { as: 'fromAccount', foreignKey: 'fromAccountId' });
 db.transfers.belongsTo(db.bankAccounts, { as: 'toAccount', foreignKey: 'toAccountId' });
+
+db.otp.belongsTo(db.user,{as: 'user', foreignKey:'userId'});
+db.user.hasOne(db.otp,{as:"otp"});
 
 
 db.ROLES = ["user", "admin"];

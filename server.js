@@ -7,6 +7,11 @@ const cron = require("node-cron");
 
 const app = express();
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
+
 app.use(
   cors({
     credentials: true,
@@ -83,6 +88,7 @@ function initial() {
         username: "user" + index,
         password: "123456",
         email: "user" + index + "@gmail.com",
+        mfaEnabled:'false',
         roles: ["user"]
       }),
       headers: {
@@ -149,9 +155,9 @@ cron.schedule("*/10 * * * * *", async function () {
 
 function isToday(date, today) {
   return (
-    date.getDate() === today.getDate() &&
-    date.getMonth() === today.getMonth() &&
-    date.getFullYear() === today.getFullYear()
+    date.getDate() <= today.getDate() &&
+    date.getMonth() <= today.getMonth() &&
+    date.getFullYear() <= today.getFullYear()
   );
 }
 

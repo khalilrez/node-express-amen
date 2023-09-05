@@ -60,6 +60,12 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -70,6 +76,12 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "500": {
             "description": "Internal Server Error"
@@ -203,16 +215,22 @@
             "schema": {
               "type": "object",
               "properties": {
+                "sourceRib": {
+                  "example": "any"
+                },
+                "destinationRib": {
+                  "example": "any"
+                },
                 "amount": {
                   "example": "any"
                 },
                 "type": {
                   "example": "any"
                 },
-                "from": {
+                "date": {
                   "example": "any"
                 },
-                "to": {
+                "devise": {
                   "example": "any"
                 }
               }
@@ -231,6 +249,9 @@
           },
           "403": {
             "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -539,6 +560,12 @@
                 },
                 "password": {
                   "example": "any"
+                },
+                "isActive": {
+                  "example": "any"
+                },
+                "mfaEnabled": {
+                  "example": "any"
                 }
               }
             }
@@ -603,7 +630,7 @@
         }
       }
     },
-    "/api/auth/{code}": {
+    "/api/auth/activation/{code}": {
       "post": {
         "description": "",
         "parameters": [
@@ -617,6 +644,127 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/auth/send-activation/": {
+      "post": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/auth/generate": {
+      "get": {
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/auth/verify": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "otpCode": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/auth/check-status": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/auth/complete-verification": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -693,6 +841,9 @@
                 },
                 "password": {
                   "example": "any"
+                },
+                "mfaEnabled": {
+                  "example": "any"
                 }
               }
             }
@@ -759,7 +910,7 @@
                 "email": {
                   "example": "any"
                 },
-                "password": {
+                "mfaEnabled": {
                   "example": "any"
                 }
               }

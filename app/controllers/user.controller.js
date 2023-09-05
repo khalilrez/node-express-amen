@@ -19,7 +19,7 @@ exports.allAccess = (req, res) => {
 
   exports.create = async (req, res) => {
     try {
-      const { firstName,lastName,username, email, password } = req.body;
+      const { firstName,lastName,username, email, password,mfaEnabled } = req.body;
       const hashedPassword = bcrypt.hashSync(password, 8);
       
       const newUser = await User.create({ firstName,lastName,username, email, password: hashedPassword });
@@ -33,15 +33,15 @@ exports.allAccess = (req, res) => {
   exports.update = async (req, res) => {
     try {
       const userId = req.params.id;
-      const { firstName,lastName,username, email, password } = req.body;
-      const hashedPassword = bcrypt.hashSync(password, 8);
+      const { firstName,lastName,username, email,mfaEnabled } = req.body;
+      //const hashedPassword = bcrypt.hashSync(password, 8);
       
       const user = await User.findByPk(userId);
       if (!user) {
         return res.status(404).json({ message: 'User not found.' });
       }
       
-      await user.update({ firstName,lastName,username, email, password: hashedPassword });
+      await user.update({ firstName,lastName,username, email,mfaEnabled });
       res.status(200).json({ message: 'User updated successfully.' });
     } catch (error) {
       console.error(error);

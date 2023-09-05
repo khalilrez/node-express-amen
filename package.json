@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "swagger-autogen": "node swagger.js",
+    "autogen": "node swagger.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "khalil rezgui",
@@ -15,13 +15,16 @@
     "bcryptjs": "^2.4.3",
     "cookie-session": "^2.0.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.1",
     "mysql2": "^3.6.0",
     "node-cron": "^3.0.2",
+    "postmark": "^3.0.19",
     "sequelize": "^6.32.1",
     "swagger-autogen": "^2.23.5",
-    "swagger-ui-express": "^5.0.0"
+    "swagger-ui-express": "^5.0.0",
+    "twilio": "^4.16.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

@@ -20,6 +20,13 @@ module.exports = (sequelize, Sequelize) => {
       },
       activationCode: {
         type: Sequelize.STRING
+      },
+      mfaEnabled:{
+        type: Sequelize.BOOLEAN
+      },
+      isVerifyingOtp:{
+        type: Sequelize.BOOLEAN,
+        default:true
       }
     });
   

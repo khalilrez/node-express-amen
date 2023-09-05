@@ -1,3 +1,10 @@
+// Require:
+var postmark = require("postmark");
+
+// Send an email:
+var client = new postmark.ServerClient(process.env.POSTMARK_API_KEY);
+
+
 exports.generateRandomNumberString = (length) => {
     let result = '';
     const characters = '0123456789';
@@ -22,6 +29,32 @@ exports.splitString = (inputString) => {
         return { activationCode, id };
     } else {
         throw new Error('Input string should be longer than 7 characters');
+    }
+}
+
+exports.generateOTP = () => {
+    const digits = '0123456789';
+    let otp = '';
+
+    for (let i = 0; i < 6; i++) {
+        otp += digits[Math.floor(Math.random() * 10)];
+    }
+
+    return otp;
+}
+
+exports.sendEmail = async (to, from, subject, text,html) => {
+try{
+    client.sendEmail({
+        "From": from,
+        "To": to,
+        "Subject": subject,
+        "HtmlBody": html,
+        "TextBody": text,
+        "MessageStream": "outbound"
+      });
+    }catch(error){
+        console.error(error)
     }
 }
 
