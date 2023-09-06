@@ -1,12 +1,19 @@
-FROM node:18 as build
+FROM node:18
+
+# Create app directory
 WORKDIR /usr/src/app
+
+# Copy package.json
 COPY package*.json ./
-RUN npm install
+
+# Install dependencies
+RUN yarn install
+
+# Copy all files
 COPY . .
-FROM node:18-alpine
-WORKDIR /usr/src/app
-COPY --from=build /usr/src/app/package*.json ./
-COPY --from=build /usr/src/app/node_modules ./node_modules
-COPY --from=build /usr/src/app ./
+
+# Expose port 3000
 EXPOSE 3000
-CMD ["npm", "start"]
+
+# Run app
+CMD [ "node", "index.js" ]
