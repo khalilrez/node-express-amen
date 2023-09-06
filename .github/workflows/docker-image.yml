@@ -18,8 +18,8 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t your-docker-username/your-repo-name:$GITHUB_SHA .
-          docker push your-docker-username/your-repo-name:$GITHUB_SHA
+          docker build -t khalilrez/node-express-amen:$GITHUB_SHA .
+          docker push khalilrez/node-express-amen:$GITHUB_SHA
 
       - name: Cleanup
         run: docker logout
