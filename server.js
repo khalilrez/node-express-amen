@@ -64,7 +64,7 @@ function initial() {
     name: "admin"
   });
 
-  fetch("http://localhost:8080/api/auth/signup", {
+  fetch("http://localhost:3000/api/auth/signup", {
     method: "POST",
     body: JSON.stringify({
       firstName: "admin",
@@ -80,7 +80,7 @@ function initial() {
     }
   })
   for (let index = 1; index <= 10; index++) {
-    fetch("http://localhost:8080/api/auth/signup", {
+    fetch("http://localhost:3000/api/auth/signup", {
       method: "POST",
       body: JSON.stringify({
         firstName: "firstName " + index,
