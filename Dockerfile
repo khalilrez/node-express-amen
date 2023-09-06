@@ -1,4 +1,4 @@
-# Use an official Node.js runtime as the base image
+# Stage 1: Build the application
 FROM node:14 as build
 
 # Set the working directory in the container
@@ -7,8 +7,8 @@ WORKDIR /usr/src/app
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
-# Install project dependencies
-RUN npm install --production
+# Install all project dependencies (including development dependencies for building)
+RUN npm install
 
 # Copy the rest of the application code to the working directory
 COPY . .
@@ -16,15 +16,14 @@ COPY . .
 # Build your application (if applicable)
 # Example: RUN npm run build
 
-# --- Production Image ---
-
-# Use a smaller base image for production (e.g., alpine)
+# Stage 2: Create a production image
 FROM node:14-alpine
 
 # Set the working directory in the production image
 WORKDIR /usr/src/app
 
 # Copy only the necessary files from the build image
+COPY --from=build /usr/src/app/package*.json ./
 COPY --from=build /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app ./
 
