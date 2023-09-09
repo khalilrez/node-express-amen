@@ -15,7 +15,7 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:4200"],
+    origin: "http://localhost:4200"
   })
 );
 
@@ -45,15 +45,15 @@ const Transfer = db.transfers;
 
 
 db.sequelize.sync({ force: true })
-  .then(() => {
+  .then(async () => {
     console.log("Dropped & ReSynced db.");
-    initial();
+    await initial();
   })
   .catch((err) => {
     console.log("Failed to sync db: " + err.message);
   });
 
-function initial() {
+ async function initial() {
   Role.create({
     id: 1,
     name: "user"
@@ -170,7 +170,7 @@ require('./app/routes/user.routes')(app);
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 
-
+exports.app = app
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

@@ -9,11 +9,8 @@ module.exports = app => {
     router.post("/api/transfers/",[authJwt.verifyToken], transfers.performTransfer);
   
     // Retrieve all transfers
-    router.get("/api/transfers/",[authJwt.verifyToken], transfers.findAllBasedOnDirection);
+    router.get("/api/transfers/:rib",[authJwt.verifyToken], transfers.findAllBasedOnDirection);
 
-    
-    // Retrieve a single BankAccount with id
-    router.get("/api/transfers/:id",[authJwt.verifyToken], transfers.findOne);
   
     // Delete a BankAccount with id
     router.delete("/api/transfers/:id",[authJwt.verifyToken, authJwt.isAdmin], transfers.delete);

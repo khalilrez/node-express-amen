@@ -5,54 +5,59 @@ const Op = db.Sequelize.Op;
 
 
 exports.allAccess = (req, res) => {
-    res.status(200).send("Public Content.");
-  };
-  
-  exports.userBoard = (req, res) => {
-    res.status(200).send("User Content.");
-  };
-  
-  exports.adminBoard = (req, res) => {
-    res.status(200).send("Admin Content.");
-  };
-  
+  res.status(200).send("Public Content.");
+};
 
-  exports.create = async (req, res) => {
-    try {
-      const { firstName,lastName,username, email, password,mfaEnabled } = req.body;
+exports.userBoard = (req, res) => {
+  res.status(200).send("User Content.");
+};
+
+exports.adminBoard = (req, res) => {
+  res.status(200).send("Admin Content.");
+};
+
+
+exports.create = async (req, res) => {
+  try {
+    const { firstName, lastName, username, email, password, mfaEnabled } = req.body;
+    const hashedPassword = bcrypt.hashSync(password, 8);
+
+    const newUser = await User.create({ firstName, lastName, username, email, password: hashedPassword });
+    res.status(201).json(newUser);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'An error occurred while creating the user.' });
+  }
+};
+
+exports.update = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const { firstName, lastName, password, email, mfaEnabled, phone, address } = req.body;
+
+    const user = await User.findByPk(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+    if (password) {
       const hashedPassword = bcrypt.hashSync(password, 8);
-      
-      const newUser = await User.create({ firstName,lastName,username, email, password: hashedPassword });
-      res.status(201).json(newUser);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'An error occurred while creating the user.' });
+      await user.update({ firstName, lastName, password:hashedPassword, email, mfaEnabled, phone, address });
     }
-  };
-  
-  exports.update = async (req, res) => {
-    try {
-      const userId = req.params.id;
-      const { firstName,lastName,username, email,mfaEnabled } = req.body;
-      //const hashedPassword = bcrypt.hashSync(password, 8);
-      
-      const user = await User.findByPk(userId);
-      if (!user) {
-        return res.status(404).json({ message: 'User not found.' });
-      }
-      
-      await user.update({ firstName,lastName,username, email,mfaEnabled });
-      res.status(200).json({ message: 'User updated successfully.' });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'An error occurred while updating the user.' });
+    else {
+      await user.update({ firstName, lastName, email, mfaEnabled, phone, address });
     }
-  };
+    res.status(200).json({ message: 'User updated successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'An error occurred while updating the user.' });
+  }
+};
 
 exports.findAll = async (req, res) => {
   const userId = req.userId;
   try {
-    const users = await User.findAll({include: ["bankAccounts"],
+    const users = await User.findAll({
+      include: ["bankAccounts"],
       where: {
         id: {
           [Op.ne]: userId // Exclude users with token
@@ -70,11 +75,11 @@ exports.findOne = async (req, res) => {
   try {
     const userId = req.params.id;
     const user = await User.findByPk(userId);
-    
+
     if (!user) {
       return res.status(404).json({ message: 'User not found.' });
     }
-    
+
     res.status(200).json(user);
   } catch (error) {
     console.error(error);
@@ -86,11 +91,11 @@ exports.delete = async (req, res) => {
   try {
     const userId = req.params.id;
     const user = await User.findByPk(userId);
-    
+
     if (!user) {
       return res.status(404).json({ message: 'User not found.' });
     }
-    
+
     await user.destroy();
     res.status(204).json({ message: 'User deleted successfully.' });
   } catch (error) {
@@ -100,13 +105,13 @@ exports.delete = async (req, res) => {
 };
 
 
- exports.getUserInfo = (req, res) => {
+exports.getUserInfo = (req, res) => {
   const userId = req.userId;
-  return User.findByPk(userId, {include: ["bankAccounts"]})
-    .then((user) =>{
-      res.status(200).json({user})
+  return User.findByPk(userId, { include: ["bankAccounts"] })
+    .then((user) => {
+      res.status(200).json({ user })
     })
     .catch((err) => {
       console.log(">> Error Finding User")
     })
- }
+}

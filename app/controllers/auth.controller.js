@@ -233,7 +233,9 @@ exports.signin = async (req, res) => {
       email: user.email,
       roles: authorities,
       isActive: user.isActive,
-      mfaEnabled: user.mfaEnabled
+      mfaEnabled: user.mfaEnabled,
+      phone: user.phone,
+      address: user.address
     });
   } catch (error) {
     return res.status(500).send({ message: error.message });
